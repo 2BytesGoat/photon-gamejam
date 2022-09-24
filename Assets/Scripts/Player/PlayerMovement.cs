@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
@@ -10,8 +11,18 @@ public class PlayerMovement : MonoBehaviour {
 
     Vector2 movement;
 
+    private PhotonView photonView;
+
+    private void Awake() {
+        photonView = GetComponent<PhotonView>();
+    }
+
     // Update is called once per frame
     void Update() {
+        if (PhotonNetwork.IsConnected && !photonView.IsMine) {
+            return;
+        }
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         movement = movement.normalized;
