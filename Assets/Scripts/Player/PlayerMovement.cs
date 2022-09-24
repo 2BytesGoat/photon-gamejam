@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour, IPunObservable {
     public float moveSpeed = 1.25f;
     public Rigidbody2D rb;
 
@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 
     public Animator animator;
 
-    Vector2 movement;
+    private Vector2 movement;
+    private bool flipped;
 
     private PhotonView photonView;
 
@@ -23,26 +24,36 @@ public class PlayerMovement : MonoBehaviour {
             return;
         }
 
+        bool wasFlipped = movement.x < 0 || flipped;
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         movement = movement.normalized;
 
         animator.SetFloat("Speed", movement.sqrMagnitude);
 
-        UpdateFacingDirection();
+        flipped = movement.x < 0 || (movement.x == 0 && wasFlipped);
+    }
+
+    private void LateUpdate() {
+        if (flipped) {
+            this.transform.localScale = new Vector3(-1, 1, 1);
+            PlayerText.transform.localScale = new Vector3(-1, 1, 1);
+        } else {
+            this.transform.localScale = new Vector3(1, 1, 1);
+            PlayerText.transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     private void FixedUpdate() {
         rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * movement);
     }
 
-    private void UpdateFacingDirection() {
-        if (movement.x < 0) {
-            this.transform.localScale = new Vector3(-1, 1, 1);
-            PlayerText.transform.localScale = new Vector3(-1, 1, 1);
-        } else if (movement.x > 0) {
-            this.transform.localScale = new Vector3(1, 1, 1);
-            PlayerText.transform.localScale = new Vector3(1, 1, 1);
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (stream.IsWriting) {
+            stream.SendNext(flipped);
+        } else {
+            flipped = (bool)stream.ReceiveNext();
         }
     }
 }
