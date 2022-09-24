@@ -1,5 +1,3 @@
-using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -25,12 +23,6 @@ public class EnemyAI : MonoBehaviour {
         }
 
         agent.SetDestination(target.position);
-
-        if (agent.velocity.x < 0.01f) {
-            this.transform.localScale = new Vector3(-1, 1, 1);
-        } else if (agent.velocity.x > 0.01f) {
-            this.transform.localScale = new Vector3(1, 1, 1);
-        }
     }
 
     private void DetectObject() {
