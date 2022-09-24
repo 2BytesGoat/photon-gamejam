@@ -6,7 +6,7 @@ public class EnemyAI : MonoBehaviour {
     public float detectionRadiusSize;
     public LayerMask detectionLayer;
 
-    private NavMeshAgent agent; 
+    private NavMeshAgent agent;
     private Transform target;
 
     private void Start() {
@@ -17,8 +17,12 @@ public class EnemyAI : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient) {
+            return;
+        }
+
         DetectObject();
-        
+
         if (target == null) {
             return;
         }

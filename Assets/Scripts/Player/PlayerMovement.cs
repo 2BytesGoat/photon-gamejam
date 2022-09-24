@@ -24,15 +24,13 @@ public class PlayerMovement : MonoBehaviour, IPunObservable {
             return;
         }
 
-        bool wasFlipped = movement.x < 0 || flipped;
-
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         movement = movement.normalized;
 
         animator.SetFloat("Speed", movement.sqrMagnitude);
 
-        flipped = movement.x < 0 || (movement.x == 0 && wasFlipped);
+        flipped = movement.x < 0 || (movement.x == 0 && flipped);
     }
 
     private void LateUpdate() {
