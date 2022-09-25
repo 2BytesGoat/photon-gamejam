@@ -11,15 +11,14 @@ public class PlayerInstanceManager : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        if (spawnPositions.Count <= 0) {
-            return;
-        }
+        int randomSpawnIndex = Random.Range(0, spawnPositions.Count - 1);
+        Vector3 playerPosition = spawnPositions[randomSpawnIndex].transform.position;
+        playerPosition.z = 0;
 
         if (PhotonNetwork.IsConnected) {
-            PhotonNetwork.Instantiate(this.playerPrefab.name, spawnPositions[PhotonNetwork.LocalPlayer.ActorNumber - 1].transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(this.playerPrefab.name, playerPosition, Quaternion.identity);
         } else {
-            Instantiate(playerPrefab, spawnPositions[0].transform);
+            Instantiate(playerPrefab, playerPosition, Quaternion.identity);
         }
-
     }
 }
