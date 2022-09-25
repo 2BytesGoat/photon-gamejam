@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
     }
 
     public void StopAttack() {
+        animator.ResetTrigger("AttackStarted");
         isAttacking = false;
     }
 }
