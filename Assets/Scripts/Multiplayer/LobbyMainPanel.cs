@@ -93,7 +93,7 @@ public class LobbyMainPanel : MonoBehaviourPunCallbacks {
     public override void OnJoinRandomFailed(short returnCode, string message) {
         string roomName = "Room " + Random.Range(1000, 10000);
 
-        RoomOptions options = new RoomOptions { MaxPlayers = 8 };
+        RoomOptions options = new RoomOptions { MaxPlayers = Constants.MAX_PLAYER_COUNT };
 
         PhotonNetwork.CreateRoom(roomName, options, null);
     }

@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor (typeof (EnemyAI))]
+[CustomEditor(typeof(EnemyAI))]
 public class FieldOfViewEditor : Editor {
     void OnSceneGUI() {
         EnemyAI enemyAI = (EnemyAI)target;
@@ -11,3 +10,4 @@ public class FieldOfViewEditor : Editor {
         Handles.DrawWireDisc(enemyAI.transform.position, new Vector3(0f, 0f, 1f), enemyAI.detectionRadiusSize);
     }
 }
+#endif
