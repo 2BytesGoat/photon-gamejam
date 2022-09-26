@@ -17,6 +17,11 @@ public class PlayerMovement : MonoBehaviour, IPunObservable {
     private void Awake() {
         photonView = GetComponent<PhotonView>();
     }
+    private void Start() {
+        if (PhotonNetwork.IsConnected) {
+            PlayerText.GetComponent<TMPro.TextMeshPro>().text = photonView.Owner.NickName;
+        }
+    }
 
     // Update is called once per frame
     void Update() {
