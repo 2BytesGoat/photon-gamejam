@@ -31,8 +31,7 @@ public class PlayerMovement : MonoBehaviour, IPunObservable {
             return;
         }
 
-        bool attacked = Input.GetButtonDown("Fire1");
-        if (attacked) {
+        if (Input.GetButtonDown("Fire1")) {
             weapon.StartAttack();
         }
 
