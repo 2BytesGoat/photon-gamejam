@@ -3,18 +3,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour, IPunObservable {
     public float moveSpeed = 1.25f;
+    
     public Rigidbody2D rb;
-
     public GameObject PlayerText;
-
     public Animator animator;
 
     private Vector2 movement;
     private bool flipped;
 
+    private Weapon weapon;
     private PhotonView photonView;
 
     private void Awake() {
+        weapon = GetComponentInChildren<Weapon>();
         photonView = GetComponent<PhotonView>();
     }
 
@@ -22,6 +23,16 @@ public class PlayerMovement : MonoBehaviour, IPunObservable {
     void Update() {
         if (PhotonNetwork.IsConnected && !photonView.IsMine) {
             return;
+        }
+
+        if (weapon.isAttacking) {
+            movement = Vector2.zero;
+            animator.SetFloat("Speed", movement.sqrMagnitude);
+            return;
+        }
+
+        if (Input.GetButtonDown("Fire1")) {
+            weapon.StartAttack();
         }
 
         movement.x = Input.GetAxisRaw("Horizontal");
