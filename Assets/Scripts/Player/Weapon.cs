@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public float damage = 1.5f;
+    public float knockbackPower = 5f;
+
     private Animator animator;
     public bool isAttacking { get; private set; }
 
