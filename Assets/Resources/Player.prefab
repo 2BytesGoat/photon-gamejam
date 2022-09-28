@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1176673925747531469}
   - component: {fileID: 1176673925747531468}
   - component: {fileID: 1176673925747531467}
+  - component: {fileID: 5431349092106007615}
   - component: {fileID: 4689421867681679806}
   - component: {fileID: 9118349463905268050}
   - component: {fileID: 5682507984006073665}
@@ -76,6 +77,21 @@ MonoBehaviour:
   rb: {fileID: 1176673925747531468}
   PlayerText: {fileID: 1176673927327464587}
   animator: {fileID: 4545154181539617079}
+--- !u!114 &5431349092106007615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176673925747531471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34efbdf1c8f77f447ad3e9f5b7d0b3a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soulLootLayerName: Souls
+  soulSliderPrefab: {fileID: 762886198861151735, guid: 35e5c98b13da2df4ca90d5d77f233686,
+    type: 3}
 --- !u!61 &4689421867681679806
 BoxCollider2D:
   m_ObjectHideFlags: 0

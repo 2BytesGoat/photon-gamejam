@@ -1,8 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DamageableCharacter : MonoBehaviour, IDamageable
-{
+public class DamageableCharacter : MonoBehaviour, IDamageable, ILootDroppable {
+    [Header("Health related")]
     [SerializeField] float _health = 3;
     [SerializeField] bool _targetable = true;
     [SerializeField] bool _invincible = false;
@@ -12,11 +12,15 @@ public class DamageableCharacter : MonoBehaviour, IDamageable
     [SerializeField] bool canTurnInvincible = false;
     [SerializeField] float invincibilityTime = 0.25f;
 
+    [Header("Loot related")]
+    [SerializeField] int lootAmount = 5;
+    [SerializeField] GameObject soulDrop;
+
     float invincibleTimeEmplased = 0f;
 
     Rigidbody2D rb;
     Collider2D physicsCollider;
-    
+
     public float Health {
         set {
             _health = value;
@@ -31,7 +35,7 @@ public class DamageableCharacter : MonoBehaviour, IDamageable
 
     public bool Targetable {
         get { return _targetable; }
-        set { 
+        set {
             _targetable = value;
 
             if (disableSimulation) {
@@ -52,7 +56,7 @@ public class DamageableCharacter : MonoBehaviour, IDamageable
     }
 
     public void OnHit(float damage, Vector2 knockback) {
-        if (!Invincible) { 
+        if (!Invincible) {
             Health -= damage;
 
             rb.AddForce(knockback, ForceMode2D.Impulse);
@@ -61,7 +65,7 @@ public class DamageableCharacter : MonoBehaviour, IDamageable
                 Invincible = true;
             }
         }
-}
+    }
 
     public void OnHit(float damage) {
         if (!Invincible) {
@@ -74,7 +78,13 @@ public class DamageableCharacter : MonoBehaviour, IDamageable
     }
 
     public void OnObjectDestroyed() {
+        DropLoot();
         Destroy(gameObject);
+    }
+
+    public void DropLoot() {
+        GameObject loot = Instantiate(soulDrop, transform.position, Quaternion.identity);
+        loot.GetComponent<SoulDrop>().SoulAmount = lootAmount;
     }
 
     public void Start() {
@@ -99,9 +109,9 @@ public class DamageableCharacter : MonoBehaviour, IDamageable
                 Weapon weapon = collider.GetComponent<Weapon>();
                 Vector2 direction = (transform.position - collider.transform.position).normalized;
                 Debug.Log(direction * weapon.knockbackPower);
-                OnHit(weapon.damage, direction*weapon.knockbackPower);
+                OnHit(weapon.damage, direction * weapon.knockbackPower);
             }
         }
-        
+
     }
 }

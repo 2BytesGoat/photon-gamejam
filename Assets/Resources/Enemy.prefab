@@ -162,6 +162,9 @@ MonoBehaviour:
   disableSimulation: 0
   canTurnInvincible: 0
   invincibilityTime: 0.25
+  lootAmount: 5
+  soulDrop: {fileID: 8835709630321200356, guid: a5cfc9197dc1ca648806ad4dd7d7ccaf,
+    type: 3}
 --- !u!50 &4655703037460154546
 Rigidbody2D:
   serializedVersion: 4
