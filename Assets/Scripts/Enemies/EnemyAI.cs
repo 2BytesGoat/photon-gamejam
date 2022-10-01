@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     // Update is called once per frame
