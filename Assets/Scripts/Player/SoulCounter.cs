@@ -17,6 +17,10 @@ public class SoulCounter : MonoBehaviour {
     // Use this for initialization
     void Start() {
         photonView = GetComponent<PhotonView>();
+
+        if (PhotonNetwork.IsConnected && !photonView.IsMine) {
+            return;
+        }
         soulSlider = Instantiate(soulSliderPrefab, GameObject.Find("Canvas").transform).GetComponent<Slider>();
     }
 
@@ -27,9 +31,21 @@ public class SoulCounter : MonoBehaviour {
 
         if (collision.gameObject.layer == LayerMask.NameToLayer(soulLootLayerName)) {
             souls += collision.gameObject.GetComponent<SoulDrop>().SoulAmount;
-            Destroy(collision.gameObject);
+            if (souls > Constants.MAX_SOULS) {
+                souls = (int)Constants.MAX_SOULS;
+            }
+            soulSlider.value = souls / Constants.MAX_SOULS;
 
-            soulSlider.value = souls / 100f;
+            if (PhotonNetwork.IsConnected) {
+                photonView.RPC("DestroySoulDrop", RpcTarget.MasterClient, collision.gameObject.GetComponent<PhotonView>().ViewID);
+            } else {
+                Destroy(collision.gameObject);
+            }
         }
+    }
+
+    [PunRPC]
+    private void DestroySoulDrop(int viewId) {
+        PhotonNetwork.Destroy(PhotonView.Find(viewId));
     }
 }

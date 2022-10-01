@@ -140,6 +140,7 @@ MonoBehaviour:
   - {fileID: 1176673925747531467}
   - {fileID: 5682507984006073665}
   - {fileID: 6802379811469786334}
+  - {fileID: 6494738171359637423}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -345,6 +346,7 @@ GameObject:
   - component: {fileID: 5189627929043656474}
   - component: {fileID: 3179288630090613432}
   - component: {fileID: 6940049670300321893}
+  - component: {fileID: 6494738171359637423}
   m_Layer: 6
   m_Name: Weapon
   m_TagString: Weapon
@@ -500,6 +502,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.12, y: 0.3}
   m_EdgeRadius: 0
+--- !u!114 &6494738171359637423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329667313774625764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 9
+    SynchronizeType: 1
+    Name: AttackStarted
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &6843743297551709569
 GameObject:
   m_ObjectHideFlags: 0

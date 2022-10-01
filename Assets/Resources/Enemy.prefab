@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4962472916811430927}
   - component: {fileID: 4655703037460154546}
   - component: {fileID: 5041434323535470674}
+  - component: {fileID: 7371622594653498330}
   m_Layer: 7
   m_Name: ImpGFX
   m_TagString: Untagged
@@ -212,6 +213,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
+--- !u!114 &7371622594653498330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8481243352089320292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 7013073986428623336}
+  - {fileID: 8663795407765395663}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8481243353286919742
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,8 +331,6 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 3413358891429257817}
-  - {fileID: 7013073986428623336}
-  - {fileID: 8663795407765395663}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

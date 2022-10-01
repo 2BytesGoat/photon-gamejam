@@ -1,3 +1,4 @@
+using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -78,12 +79,22 @@ public class DamageableCharacter : MonoBehaviour, IDamageable, ILootDroppable {
     }
 
     public void OnObjectDestroyed() {
+        if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient) {
+            return;
+        }
+
         DropLoot();
-        Destroy(gameObject);
+        if (PhotonNetwork.IsConnected) {
+            PhotonNetwork.Destroy(gameObject);
+        } else {
+            Destroy(gameObject);
+        }
     }
 
     public void DropLoot() {
-        GameObject loot = Instantiate(soulDrop, transform.position, Quaternion.identity);
+        GameObject loot = PhotonNetwork.IsConnected ?
+            PhotonNetwork.Instantiate(soulDrop.name, transform.position, Quaternion.identity) :
+            Instantiate(soulDrop, transform.position, Quaternion.identity);
         loot.GetComponent<SoulDrop>().SoulAmount = lootAmount;
     }
 
