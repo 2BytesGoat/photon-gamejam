@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour, IPunObservable {
@@ -13,6 +14,13 @@ public class PlayerMovement : MonoBehaviour, IPunObservable {
 
     private Weapon weapon;
     private PhotonView photonView;
+
+    private Camera player_camera;
+
+    public Camera camera {
+        get { return player_camera; }
+        set { player_camera = value; }
+    }
 
     private void Awake() {
         weapon = GetComponentInChildren<Weapon>();
@@ -57,6 +65,13 @@ public class PlayerMovement : MonoBehaviour, IPunObservable {
             this.transform.localScale = new Vector3(1, 1, 1);
             PlayerText.transform.localScale = new Vector3(1, 1, 1);
         }
+
+        if (photonView.IsMine) {
+            Vector3 new_camera_pos = transform.position;
+            new_camera_pos.z = -10;
+            player_camera.transform.position = new_camera_pos;
+        }
+
     }
 
     private void FixedUpdate() {

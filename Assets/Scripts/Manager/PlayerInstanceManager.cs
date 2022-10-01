@@ -9,16 +9,25 @@ public class PlayerInstanceManager : MonoBehaviour {
     [SerializeField]
     private List<GameObject> spawnPositions;
 
+    [SerializeField] 
+    private Camera mainCamera;
+
     // Start is called before the first frame update
     void Start() {
         int randomSpawnIndex = Random.Range(0, spawnPositions.Count - 1);
         Vector3 playerPosition = spawnPositions[randomSpawnIndex].transform.position;
         playerPosition.z = 0;
 
+        GameObject player;
+
         if (PhotonNetwork.IsConnected) {
-            PhotonNetwork.Instantiate(this.playerPrefab.name, playerPosition, Quaternion.identity);
+            player = PhotonNetwork.Instantiate(this.playerPrefab.name, playerPosition, Quaternion.identity);
         } else {
-            Instantiate(playerPrefab, playerPosition, Quaternion.identity);
+            player = Instantiate(playerPrefab, playerPosition, Quaternion.identity);
+        }
+
+        if (player != null) {
+            player.GetComponent<PlayerMovement>().camera = mainCamera;
         }
     }
 }
