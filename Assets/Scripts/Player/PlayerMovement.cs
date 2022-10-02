@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour, IPunObservable {
     public float moveSpeed = 1.25f;
-    
+
     public Rigidbody2D rb;
     public GameObject PlayerText;
     public Animator animator;

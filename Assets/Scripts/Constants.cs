@@ -10,6 +10,8 @@ public class Constants {
     public const string PLAYER_READY = "IsPlayerReady";
     public const string PLAYER_LOADED_LEVEL = "PlayerLoadedLevel";
 
+    public const float MAX_SOULS = 100f;
+
     public static Color GetColor(int colorChoice) {
         switch (colorChoice) {
             case 0: return Color.red;
