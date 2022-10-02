@@ -66,11 +66,13 @@ public class PlayerMovement : MonoBehaviour, IPunObservable {
             PlayerText.transform.localScale = new Vector3(1, 1, 1);
         }
 
-        if (photonView.IsMine) {
-            Vector3 new_camera_pos = transform.position;
-            new_camera_pos.z = -10;
-            player_camera.transform.position = new_camera_pos;
+        if (PhotonNetwork.IsConnected && !photonView.IsMine) {
+            return;
         }
+
+        Vector3 new_camera_pos = transform.position;
+        new_camera_pos.z = -10;
+        player_camera.transform.position = new_camera_pos;
 
     }
 
